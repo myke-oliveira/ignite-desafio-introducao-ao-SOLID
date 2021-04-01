@@ -1,0 +1,129 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Ignite Desafio Introdução ao SOLID",
+    "description": "This is a Rest API",
+    "version": "1.0.0",
+    "contact": {
+      "email": "mykeapo@gmail.com"
+    }
+  },
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Create an user",
+        "description": "Create a new user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "Maria dos Santos",
+                  "email": "maria.santos@yahoo.com"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Email already taken"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Users"],
+        "summary": "List all users",
+        "description": "List all users",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "user_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description":"Success",
+            "content": {
+              "application/json": {
+                "type": "array",
+                "items": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Not allowed"
+          }
+        }
+      }
+    },
+    "/users/{id}/admin": {
+      "patch": {
+        "tags": ["Users"],
+        "summary": "Set an user as admin",
+        "description": "Set an user as admin",
+        "parameters": [{
+          "name": "id",
+          "in": "path",
+          "description": "User's id",
+          "required": true,
+          "type": "string"
+        }],
+        "responses": {
+          "201": {
+            "description": "User became admin"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Get user info by id",
+        "description": "Get user info by id",
+        "parameters": [{
+          "name": "id",
+          "in": "path",
+          "description": "user_id",
+          "required": true,
+          "type": "string"
+        }],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    }
+  }
+}
